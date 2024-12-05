@@ -1,0 +1,284 @@
+{
+  "api": {
+    "name": "ThinkerNlbSoftPosPlugin",
+    "slug": "thinkernlbsoftposplugin",
+    "docs": "",
+    "tags": [],
+    "methods": [
+      {
+        "name": "echo",
+        "signature": "(options: { value: string; }) => Promise<{ value: string; }>",
+        "parameters": [
+          {
+            "name": "options",
+            "docs": "",
+            "type": "{ value: string; }"
+          }
+        ],
+        "returns": "Promise<{ value: string; }>",
+        "tags": [],
+        "docs": "",
+        "complexTypes": [],
+        "slug": "echo"
+      },
+      {
+        "name": "initiatePurchaseTransaction",
+        "signature": "(options: PurchaseTransactionOptions) => Promise<TransactionResponse>",
+        "parameters": [
+          {
+            "name": "options",
+            "docs": "",
+            "type": "PurchaseTransactionOptions"
+          }
+        ],
+        "returns": "Promise<TransactionResponse>",
+        "tags": [],
+        "docs": "",
+        "complexTypes": [
+          "TransactionResponse",
+          "PurchaseTransactionOptions"
+        ],
+        "slug": "initiatepurchasetransaction"
+      },
+      {
+        "name": "initiateVoidTransaction",
+        "signature": "(options: VoidTransactionOptions) => Promise<TransactionResponse>",
+        "parameters": [
+          {
+            "name": "options",
+            "docs": "",
+            "type": "VoidTransactionOptions"
+          }
+        ],
+        "returns": "Promise<TransactionResponse>",
+        "tags": [],
+        "docs": "",
+        "complexTypes": [
+          "TransactionResponse",
+          "VoidTransactionOptions"
+        ],
+        "slug": "initiatevoidtransaction"
+      }
+    ],
+    "properties": []
+  },
+  "interfaces": [
+    {
+      "name": "TransactionResponse",
+      "slug": "transactionresponse",
+      "docs": "",
+      "tags": [],
+      "methods": [],
+      "properties": [
+        {
+          "name": "status",
+          "tags": [],
+          "docs": "",
+          "complexTypes": [],
+          "type": "string"
+        },
+        {
+          "name": "statusCode",
+          "tags": [],
+          "docs": "",
+          "complexTypes": [],
+          "type": "number"
+        },
+        {
+          "name": "result",
+          "tags": [],
+          "docs": "",
+          "complexTypes": [
+            "TransactionResult"
+          ],
+          "type": "TransactionResult"
+        },
+        {
+          "name": "validationErrors",
+          "tags": [],
+          "docs": "",
+          "complexTypes": [
+            "ValidationError"
+          ],
+          "type": "ValidationError[]"
+        }
+      ]
+    },
+    {
+      "name": "TransactionResult",
+      "slug": "transactionresult",
+      "docs": "",
+      "tags": [],
+      "methods": [],
+      "properties": [
+        {
+          "name": "status",
+          "tags": [],
+          "docs": "",
+          "complexTypes": [
+            "TransactionResultStatus"
+          ],
+          "type": "TransactionResultStatus"
+        },
+        {
+          "name": "paymentIdentificator",
+          "tags": [],
+          "docs": "",
+          "complexTypes": [],
+          "type": "string"
+        }
+      ]
+    },
+    {
+      "name": "TransactionResultStatus",
+      "slug": "transactionresultstatus",
+      "docs": "",
+      "tags": [],
+      "methods": [],
+      "properties": [
+        {
+          "name": "code",
+          "tags": [],
+          "docs": "",
+          "complexTypes": [],
+          "type": "string"
+        },
+        {
+          "name": "message",
+          "tags": [],
+          "docs": "",
+          "complexTypes": [],
+          "type": "string"
+        },
+        {
+          "name": "receiptData",
+          "tags": [],
+          "docs": "",
+          "complexTypes": [],
+          "type": "string"
+        }
+      ]
+    },
+    {
+      "name": "ValidationError",
+      "slug": "validationerror",
+      "docs": "",
+      "tags": [],
+      "methods": [],
+      "properties": [
+        {
+          "name": "message",
+          "tags": [],
+          "docs": "",
+          "complexTypes": [],
+          "type": "string"
+        },
+        {
+          "name": "errorCode",
+          "tags": [],
+          "docs": "",
+          "complexTypes": [],
+          "type": "number"
+        }
+      ]
+    },
+    {
+      "name": "PurchaseTransactionOptions",
+      "slug": "purchasetransactionoptions",
+      "docs": "",
+      "tags": [],
+      "methods": [],
+      "properties": [
+        {
+          "name": "pin",
+          "tags": [],
+          "docs": "",
+          "complexTypes": [],
+          "type": "string | undefined"
+        },
+        {
+          "name": "amount",
+          "tags": [],
+          "docs": "",
+          "complexTypes": [],
+          "type": "string"
+        },
+        {
+          "name": "packageName",
+          "tags": [],
+          "docs": "",
+          "complexTypes": [],
+          "type": "string"
+        },
+        {
+          "name": "transactionType",
+          "tags": [],
+          "docs": "",
+          "complexTypes": [],
+          "type": "'POS' | 'IPS'"
+        },
+        {
+          "name": "merchantUniqueID",
+          "tags": [],
+          "docs": "",
+          "complexTypes": [],
+          "type": "string"
+        }
+      ]
+    },
+    {
+      "name": "VoidTransactionOptions",
+      "slug": "voidtransactionoptions",
+      "docs": "",
+      "tags": [],
+      "methods": [],
+      "properties": [
+        {
+          "name": "pin",
+          "tags": [],
+          "docs": "",
+          "complexTypes": [],
+          "type": "string | undefined"
+        },
+        {
+          "name": "amount",
+          "tags": [],
+          "docs": "",
+          "complexTypes": [],
+          "type": "string"
+        },
+        {
+          "name": "packageName",
+          "tags": [],
+          "docs": "",
+          "complexTypes": [],
+          "type": "string"
+        },
+        {
+          "name": "transactionType",
+          "tags": [],
+          "docs": "",
+          "complexTypes": [],
+          "type": "'POS' | 'IPS'"
+        },
+        {
+          "name": "authorizationCode",
+          "tags": [],
+          "docs": "",
+          "complexTypes": [],
+          "type": "string"
+        },
+        {
+          "name": "merchantUniqueID",
+          "tags": [],
+          "docs": "",
+          "complexTypes": [],
+          "type": "string"
+        }
+      ]
+    }
+  ],
+  "enums": [],
+  "typeAliases": [],
+  "pluginConfigs": []
+}
