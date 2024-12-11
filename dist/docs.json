@@ -215,7 +215,7 @@
           "tags": [],
           "docs": "",
           "complexTypes": [],
-          "type": "string"
+          "type": "'POS' | 'IPS'"
         },
         {
           "name": "merchantUniqueID",
@@ -259,7 +259,7 @@
           "tags": [],
           "docs": "",
           "complexTypes": [],
-          "type": "string"
+          "type": "'POS' | 'IPS'"
         },
         {
           "name": "authorizationCode",

@@ -292,24 +292,24 @@ initiateVoidTransaction(options: VoidTransactionOptions) => Promise<TransactionR
 
 #### PurchaseTransactionOptions
 
-| Prop                   | Type                |
-| ---------------------- | ------------------- |
-| **`pin`**              | <code>string</code> |
-| **`amount`**           | <code>string</code> |
-| **`packageName`**      | <code>string</code> |
-| **`transactionType`**  | <code>string</code> |
-| **`merchantUniqueID`** | <code>string</code> |
+| Prop                   | Type                        |
+| ---------------------- | --------------------------- |
+| **`pin`**              | <code>string</code>         |
+| **`amount`**           | <code>string</code>         |
+| **`packageName`**      | <code>string</code>         |
+| **`transactionType`**  | <code>'POS' \| 'IPS'</code> |
+| **`merchantUniqueID`** | <code>string</code>         |
 
 
 #### VoidTransactionOptions
 
-| Prop                    | Type                |
-| ----------------------- | ------------------- |
-| **`pin`**               | <code>string</code> |
-| **`amount`**            | <code>string</code> |
-| **`packageName`**       | <code>string</code> |
-| **`transactionType`**   | <code>string</code> |
-| **`authorizationCode`** | <code>string</code> |
-| **`merchantUniqueID`**  | <code>string</code> |
+| Prop                    | Type                        |
+| ----------------------- | --------------------------- |
+| **`pin`**               | <code>string</code>         |
+| **`amount`**            | <code>string</code>         |
+| **`packageName`**       | <code>string</code>         |
+| **`transactionType`**   | <code>'POS' \| 'IPS'</code> |
+| **`authorizationCode`** | <code>string</code>         |
+| **`merchantUniqueID`**  | <code>string</code>         |
 
 </docgen-api>

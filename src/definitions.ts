@@ -10,7 +10,7 @@ export interface PurchaseTransactionOptions {
   pin: string | undefined;
   amount: string;
   packageName: string;
-  transactionType: string;
+  transactionType: 'POS' | 'IPS';
   merchantUniqueID: string;
 }
 
@@ -18,7 +18,7 @@ export interface VoidTransactionOptions {
   pin: string | undefined;
   amount: string;
   packageName: string;
-  transactionType: string;
+  transactionType: 'POS' | 'IPS';
   authorizationCode: string;
   merchantUniqueID: string;
 }
