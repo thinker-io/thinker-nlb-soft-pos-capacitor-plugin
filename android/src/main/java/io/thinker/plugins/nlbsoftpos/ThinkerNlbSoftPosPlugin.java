@@ -2,6 +2,7 @@ package io.thinker.plugins.nlbsoftpos;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.os.Bundle;
 
 import androidx.activity.result.ActivityResult;
 
@@ -16,6 +17,7 @@ import org.json.JSONException;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Set;
 
 import io.thinker.plugins.nlbsoftpos.requests.PurchaseRequest;
 import io.thinker.plugins.nlbsoftpos.requests.VoidRequest;
@@ -100,27 +102,55 @@ public class ThinkerNlbSoftPosPlugin extends Plugin {
     private void initiatePurchaseTransactionResult(PluginCall call, ActivityResult result) {
         if (result.getResultCode() == Activity.RESULT_OK) {
             Intent data = result.getData();
+            String extrasData = "";
+
+            if(data != null) {
+                Bundle extras = data.getExtras();
+                if(extras != null) {
+                    Set<String> keys = extras.keySet();
+                    StringBuilder sb = new StringBuilder();
+                    sb.append("Intent Extras:\n");
+                    for (String key : keys) {
+                        Object value = extras.get(key);
+                        sb.append(key).append(" = ").append(value).append("\n");
+                    }
+                    extrasData = sb.toString();
+                } else {
+                    extrasData = "";
+                }
+            }
+
             if (data != null && data.getStringExtra("RESPONSE_JSON_STRING") != null) {
                 String responseString = data.getStringExtra("RESPONSE_JSON_STRING");
 
                 try {
                     JSObject response = new JSObject(responseString);
                     TransactionResponse transactionResponse = TransactionResponse.mapFromNlbResponse(response);
+                    transactionResponse.setActivityResult("RESULT_OK");
+                    transactionResponse.setExtrasData(extrasData);
                     call.resolve(transactionResponse.getJsonResponse());
                 } catch (JSONException e) {
-                    TransactionResponse response = this.getResponseJsonParseErrorResponseStatus();
-                    call.resolve(response.getJsonResponse());
+                    TransactionResponse transactionResponse = this.getResponseJsonParseErrorResponseStatus();
+                    transactionResponse.setActivityResult("RESULT_OK");
+                    transactionResponse.setExtrasData(extrasData);
+                    call.resolve(transactionResponse.getJsonResponse());
                 }
             } else {
-                TransactionResponse response = this.getMissingResponseData();
-                call.resolve(response.getJsonResponse());
+                TransactionResponse transactionResponse = this.getMissingResponseData();
+                transactionResponse.setActivityResult("RESULT_OK");
+                transactionResponse.setExtrasData(extrasData);
+                call.resolve(transactionResponse.getJsonResponse());
             }
         } else if (result.getResultCode() == Activity.RESULT_CANCELED) {
             TransactionResponse transactionResponse = this.getCanceledResponseStatus();
+            transactionResponse.setActivityResult("RESULT_CANCELED");
+            transactionResponse.setExtrasData("");
             call.resolve(transactionResponse.getJsonResponse());
         } else {
-            TransactionResponse response = this.getUnknownErrorResponseStatus();
-            call.resolve(response.getJsonResponse());
+            TransactionResponse transactionResponse = this.getUnknownErrorResponseStatus();
+            transactionResponse.setActivityResult("UNKNOWN");
+            transactionResponse.setExtrasData("");
+            call.resolve(transactionResponse.getJsonResponse());
         }
     }
 
@@ -184,27 +214,55 @@ public class ThinkerNlbSoftPosPlugin extends Plugin {
     private void initiateVoidTransactionResult(PluginCall call, ActivityResult result) {
         if (result.getResultCode() == Activity.RESULT_OK) {
             Intent data = result.getData();
+            String extrasData = "";
+
+            if(data != null) {
+                Bundle extras = data.getExtras();
+                if(extras != null) {
+                    Set<String> keys = extras.keySet();
+                    StringBuilder sb = new StringBuilder();
+                    sb.append("Intent Extras:\n");
+                    for (String key : keys) {
+                        Object value = extras.get(key);
+                        sb.append(key).append(" = ").append(value).append("\n");
+                    }
+                    extrasData = sb.toString();
+                } else {
+                    extrasData = "";
+                }
+            }
+
             if (data != null && data.getStringExtra("RESPONSE_JSON_STRING") != null) {
                 String responseString = data.getStringExtra("RESPONSE_JSON_STRING");
 
                 try {
                     JSObject response = new JSObject(responseString);
                     TransactionResponse transactionResponse = TransactionResponse.mapFromNlbResponse(response);
+                    transactionResponse.setActivityResult("RESULT_OK");
+                    transactionResponse.setExtrasData(extrasData);
                     call.resolve(transactionResponse.getJsonResponse());
                 } catch (JSONException e) {
-                    TransactionResponse response = this.getResponseJsonParseErrorResponseStatus();
-                    call.resolve(response.getJsonResponse());
+                    TransactionResponse transactionResponse = this.getResponseJsonParseErrorResponseStatus();
+                    transactionResponse.setActivityResult("RESULT_OK");
+                    transactionResponse.setExtrasData(extrasData);
+                    call.resolve(transactionResponse.getJsonResponse());
                 }
             } else {
-                TransactionResponse response = this.getMissingResponseData();
-                call.resolve(response.getJsonResponse());
+                TransactionResponse transactionResponse = this.getMissingResponseData();
+                transactionResponse.setActivityResult("RESULT_OK");
+                transactionResponse.setExtrasData(extrasData);
+                call.resolve(transactionResponse.getJsonResponse());
             }
         } else if (result.getResultCode() == Activity.RESULT_CANCELED) {
             TransactionResponse transactionResponse = this.getCanceledResponseStatus();
+            transactionResponse.setActivityResult("RESULT_CANCELED");
+            transactionResponse.setExtrasData("");
             call.resolve(transactionResponse.getJsonResponse());
         } else {
-            TransactionResponse response = this.getUnknownErrorResponseStatus();
-            call.resolve(response.getJsonResponse());
+            TransactionResponse transactionResponse = this.getUnknownErrorResponseStatus();
+            transactionResponse.setActivityResult("UNKNOWN");
+            transactionResponse.setExtrasData("");
+            call.resolve(transactionResponse.getJsonResponse());
         }
     }
 

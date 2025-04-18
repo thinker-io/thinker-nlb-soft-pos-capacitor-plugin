@@ -4,6 +4,26 @@ This is capacitor plugin to integrate your Hybrid (Ionic) application with SoftP
 This plugin will allow to issue payment requests as well as refund requests to the NLB SoftPOS application. 
 Currently NLB SoftPOS application is only available on Android devices.
 
+**IMPORTANT: Compatibility**
+
+This plugin works with `capacitor v7.2.0`, but if you need to work with `capacitor v6.0.0`, you can fork or clone this project and manually downgrade to `v6.0.0`.
+
+To downgrade you will need to set up the `package.json` dependencies of this project as given below:
+
+```
+"devDependencies": {
+    "@capacitor/android": "^6.0.0",
+    "@capacitor/core": "^6.0.0",
+    "@capacitor/docgen": "^0.2.2",
+    "@capacitor/ios": "^6.0.0",
+    "rollup": "^4.24.0",
+    ...
+  },
+  "peerDependencies": {
+    "@capacitor/core": "^6.0.0"
+  },
+```
+
 ## Install
 
 Install from github.com:
@@ -44,7 +64,7 @@ public async sendPurchaseRequest(): Promise<void> {
     try {
         const response: TransactionResponse = await ThinkerNlbSoftPos.initiatePurchaseTransaction({
             pin: '1234',
-            amount: '100,50', // IMPORTANT: use dot (.) or comma (,) based on the local. Most countries in EU use comma to separate decimal places.
+            amount: '100,50', // IMPORTANT: use dot (.) or comma (,) based on the local. Most countries in EU use comma to separate decimal places. For North Macedonia do not send decimal places (use Math.ceil(amount) to round your amounts)
             packageName: 'com.example.MyApp',
             transactionType: 'POS',
             merchantUniqueID: '123123123',
@@ -71,7 +91,7 @@ public async sendPurchaseRequest(): Promise<void> {
     try {
         const response: TransactionResponse = await ThinkerNlbSoftPos.initiatePurchaseTransaction({
             pin: '1234',
-            amount: '100,50', // IMPORTANT: use dot (.) or comma (,) based on the local. Most countries in EU use comma to separate decimal places.
+            amount: '100,50', // IMPORTANT: use dot (.) or comma (,) based on the local. Most countries in EU use comma to separate decimal places. For North Macedonia do not send decimal places (use Math.ceil(amount) to round your amounts)
             packageName: 'com.example.MyApp',
             transactionType: 'POS',
             merchantUniqueID: '123123123',
@@ -107,7 +127,7 @@ public async sendVoidRequest(): Promise<void> {
     try {
         const response: TransactionResponse = await ThinkerNlbSoftPos.initiateVoidTransaction({
             pin: '1234',
-            amount: '100,50', // IMPORTANT: use dot (.) or comma (,) based on the local. Most countries in EU use comma to separate decimal places.
+            amount: '100,50', // IMPORTANT: use dot (.) or comma (,) based on the local. Most countries in EU use comma to separate decimal places. For North Macedonia do not send decimal places (use Math.ceil(amount) to round your amounts)
             packageName: 'com.example.MyApp',
             transactionType: 'POS',
             authorizationCode: '1234',
@@ -161,21 +181,21 @@ In the next 2 sections you can see all status codes and all validation error cod
 
 #### Response status codes
 
-| [Type: string] STATUS      | [Type: number] STATUS CODE | DESCRIPTION                                                                                                                                                                                                                                              |
-|----------------------------|----------------------------|----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
-| EXECUTED                   | 1000                       | Transaction was successfully executed                                                                                                                                                                                                                    |
-| CANCELED                   | 1001                       | Transaction was canceled                                                                                                                                                                                                                                 |
-| REJECTED                   | 1002                       | Transaction was rejected                                                                                                                                                                                                                                 |
-| TIMEOUT                    | 1003                       | Transaction timeout                                                                                                                                                                                                                                      |
-| NETWORK_ERROR              | 1004                       | There was network error. Probably lost internet connection                                                                                                                                                                                               |
-| DECLINED                   | 1005                       | There was network error. Probably lost internet connection                                                                                                                                                                                               |
-| UNKNOWN_ERROR              | 2000                       | This status is returned when the plugin did not handle the exception. In most cases this will be thrown when the response from the NLB app is not handled correctly or there was underline API change                                                    |
+| [Type: string] STATUS      | [Type: number] STATUS CODE | DESCRIPTION                                                                                                                                                                                                                                           |
+|----------------------------|----------------------------|-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| EXECUTED                   | 1000                       | Transaction was successfully executed                                                                                                                                                                                                                 |
+| CANCELED                   | 1001                       | Transaction was canceled                                                                                                                                                                                                                              |
+| REJECTED                   | 1002                       | Transaction was rejected                                                                                                                                                                                                                              |
+| TIMEOUT                    | 1003                       | Transaction timeout                                                                                                                                                                                                                                   |
+| NETWORK_ERROR              | 1004                       | There was network error. Probably lost internet connection                                                                                                                                                                                            |
+| DECLINED                   | 1005                       | Card was Declined.                                                                                                                                                                                                                                    |
+| UNKNOWN_ERROR              | 2000                       | This status is returned when the plugin did not handle the exception. In most cases this will be thrown when the response from the NLB app is not handled correctly or there was underline API change                                                 |
 | VALIDATION_ERROR           | 2001                       | This status is returned when there are validation errors in your request. The plugin pre-validates your request before it is sent to the NLB SoftPOS app. In addition to this status you will have a list of all validation errors that you need to fix. |
-| RESPONSE_JSON_PARSE_ERROR  | 2002                       | This status will be returned in cases when the plugin cannot parse the JSON response from the NLB POS app.                                                                                                                                               |
-| MISSING_RESPONSE_DATA      | 2003                       | This status is returned if the NLB POS app responded with an empty message                                                                                                                                                                               |
-| NLB_STATUS_CODE_NOT_MAPPED | 2004                       | This status will be returned when the plugin cannot map the NLB POS app status code to the plugin status codes                                                                                                                                           |
-| NLB_APP_START_FAILED       | 2005                       | This status will be returned when the plugin is not able to start the NLB POS app. This can happen if the NLB POS app is not installed on the device.                                                                                                    |
-| REQUEST_DATA_MALFORMED     | 2006                       | This status will be retured from the plugin if YOU (as the user of the plugin) did not sent correctly formated request JSON object to the plugin                                                                                                         |
+| RESPONSE_JSON_PARSE_ERROR  | 2002                       | This status will be returned in cases when the plugin cannot parse the JSON response from the NLB POS app.                                                                                                                                            |
+| MISSING_RESPONSE_DATA      | 2003                       | This status is returned if the NLB POS app responded with an empty message                                                                                                                                                                            |
+| NLB_STATUS_CODE_NOT_MAPPED | 2004                       | This status will be returned when the plugin cannot map the NLB POS app status code to the plugin status codes                                                                                                                                        |
+| NLB_APP_START_FAILED       | 2005                       | This status will be returned when the plugin is not able to start the NLB POS app. This can happen if the NLB POS app is not installed on the device.                                                                                                 |
+| REQUEST_DATA_MALFORMED     | 2006                       | This status will be retured from the plugin if YOU (as the user of the plugin) did not sent correctly formated request JSON object to the plugin                                                                                                      |
 
 
 #### Validation error codes
@@ -263,6 +283,8 @@ initiateVoidTransaction(options: VoidTransactionOptions) => Promise<TransactionR
 | ---------------------- | --------------------------------------------------------------- |
 | **`status`**           | <code>string</code>                                             |
 | **`statusCode`**       | <code>number</code>                                             |
+| **`activityResult`**   | <code>string</code>                                             |
+| **`extrasData`**       | <code>string</code>                                             |
 | **`result`**           | <code><a href="#transactionresult">TransactionResult</a></code> |
 | **`validationErrors`** | <code>ValidationError[]</code>                                  |
 

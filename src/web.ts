@@ -29,11 +29,17 @@ export class NullTransactionResponse implements TransactionResponse {
   status: string;
   statusCode: number;
 
+  activityResult: string;
+  extrasData: string;
+
   result: any;
   validationErrors: ValidationError[] = [];
 
   constructor(status: string, statusCode: number) {
     this.status = status;
     this.statusCode = statusCode;
+
+    this.activityResult = '';
+    this.extrasData = '';
   }
 }

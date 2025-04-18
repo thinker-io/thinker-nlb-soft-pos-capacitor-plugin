@@ -27,6 +27,9 @@ export interface TransactionResponse {
   status: string;
   statusCode: number;
 
+  activityResult: string;
+  extrasData: string;
+
   result: TransactionResult;
   validationErrors: ValidationError[];
 }

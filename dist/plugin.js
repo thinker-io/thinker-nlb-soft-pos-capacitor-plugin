@@ -24,6 +24,8 @@ var capacitorThinkerNlbSoftPos = (function (exports, core) {
             this.validationErrors = [];
             this.status = status;
             this.statusCode = statusCode;
+            this.activityResult = '';
+            this.extrasData = '';
         }
     }
 

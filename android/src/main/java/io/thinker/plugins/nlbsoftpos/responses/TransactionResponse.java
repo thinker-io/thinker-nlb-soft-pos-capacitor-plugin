@@ -17,6 +17,9 @@ public class TransactionResponse {
     private TransactionResult result;
     private List<ValidationError> validationErrors;
 
+    private String activityResult;
+    private String extrasData;
+
     public TransactionResponse(String status, int statusCode) {
         this.status = status;
         this.statusCode = statusCode;
@@ -26,6 +29,9 @@ public class TransactionResponse {
         JSObject response = new JSObject();
         response.put("status", this.status);
         response.put("statusCode", this.statusCode);
+
+        response.put("activityResult", this.activityResult);
+        response.put("extrasData", this.extrasData);
 
         if (this.result != null) {
             JSObject result = new JSObject();
@@ -125,6 +131,23 @@ public class TransactionResponse {
     public void setValidationErrors(List<ValidationError> validationErrors) {
         this.validationErrors = validationErrors;
     }
+
+    public String getActivityResult() {
+        return activityResult;
+    }
+
+    public void setActivityResult(String activityResult) {
+        this.activityResult = activityResult;
+    }
+
+    public String getExtrasData() {
+        return extrasData;
+    }
+
+    public void setExtrasData(String extrasData) {
+        this.extrasData = extrasData;
+    }
+
 
     // endregion
 }

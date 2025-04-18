@@ -12,6 +12,8 @@ export declare class ThinkerNlbSoftPosWeb extends WebPlugin implements ThinkerNl
 export declare class NullTransactionResponse implements TransactionResponse {
     status: string;
     statusCode: number;
+    activityResult: string;
+    extrasData: string;
     result: any;
     validationErrors: ValidationError[];
     constructor(status: string, statusCode: number);

@@ -54,7 +54,7 @@ public class TransactionResponseStatusFactory {
         if (nlbCode.equals("networkError"))
             return TransactionResponseStatusFactory.getStatusByKey("NETWORK_ERROR");
 
-        if (nlbCode.equals("18"))
+        if (nlbCode.equals("18") || nlbCode.equals("91"))
             return TransactionResponseStatusFactory.getStatusByKey("DECLINE");
 
         return TransactionResponseStatusFactory.getStatusByKey("NLB_STATUS_CODE_NOT_MAPPED");

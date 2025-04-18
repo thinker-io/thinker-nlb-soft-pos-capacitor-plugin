@@ -85,6 +85,20 @@
           "type": "number"
         },
         {
+          "name": "activityResult",
+          "tags": [],
+          "docs": "",
+          "complexTypes": [],
+          "type": "string"
+        },
+        {
+          "name": "extrasData",
+          "tags": [],
+          "docs": "",
+          "complexTypes": [],
+          "type": "string"
+        },
+        {
           "name": "result",
           "tags": [],
           "docs": "",

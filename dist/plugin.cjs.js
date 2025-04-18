@@ -25,6 +25,8 @@ class NullTransactionResponse {
         this.validationErrors = [];
         this.status = status;
         this.statusCode = statusCode;
+        this.activityResult = '';
+        this.extrasData = '';
     }
 }
 
